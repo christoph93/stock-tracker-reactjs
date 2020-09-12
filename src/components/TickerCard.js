@@ -4,18 +4,17 @@ import { Card, Button } from 'react-bootstrap';
 
 function TickerCard(props) {
 
-    const [symbol, setSymbol] = useState(props.symbol);
+    const [ticker, setTicker] = useState(props.ticker);
 
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card style={{ width: '25rem' }}>
             <Card.Img variant="top" src="" />
             <Card.Body>
-                <Card.Title>{symbol}</Card.Title>
-                <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
-    </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
+                <Card.Title>{ticker.symbol}</Card.Title>
+                <Card.Text>    
+                   <p>Last Price: {ticker.lastPrice} </p>
+                    <p>Last Price Date: {ticker.lastPriceDate}</p>
+                </Card.Text>                
             </Card.Body>
         </Card>
     );

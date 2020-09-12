@@ -10,8 +10,7 @@ import TickerList from './components/TickerList';
 function App() {
   return (
     <div>
-      <TickerList />
-      <TickerCard symbol='TEST4' />
+      <TickerList />      
     </div>
   );
 }

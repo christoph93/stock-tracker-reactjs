@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Axios from 'axios';
 import { ListGroup } from 'react-bootstrap';
+import TickerCard from './TickerCard';
 
 
 const url = 'http://localhost:8080/api/symbols';
@@ -29,7 +30,9 @@ function TickerList(props) {
             {
                 loaded ? 
                     symbolList.data._embedded.symbols.map(e => 
-                    <ListGroup.Item key={e.symbol}> {e.symbol} </ListGroup.Item>
+                    <ListGroup.Item key={e.symbol}> 
+                        <TickerCard ticker={e}/>
+                     </ListGroup.Item>
                     )
                     : <p>Loading... </p>
             }
