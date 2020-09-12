@@ -11,9 +11,9 @@ function TickerCard(props) {
             <Card.Img variant="top" src="" />
             <Card.Body>
                 <Card.Title>{ticker.symbol}</Card.Title>
-                <Card.Text>    
-                   <p>Last Price: {ticker.lastPrice} </p>
-                    <p>Last Price Date: {ticker.lastPriceDate}</p>
+                <Card.Text>                    
+                    Last Price: {ticker.lastPrice} <p></p>                    
+                    Last Price Date: {ticker.lastPriceDate}                    
                 </Card.Text>                
             </Card.Body>
         </Card>

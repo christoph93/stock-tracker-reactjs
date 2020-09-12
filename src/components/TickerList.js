@@ -4,7 +4,7 @@ import { ListGroup } from 'react-bootstrap';
 import TickerCard from './TickerCard';
 
 
-const url = 'http://localhost:8080/api/symbols';
+const url = 'https://stock-tracker-api-cc.herokuapp.com/api/symbols';
 
 
 function TickerList(props) {
