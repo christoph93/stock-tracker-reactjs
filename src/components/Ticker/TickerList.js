@@ -4,7 +4,7 @@ import { ListGroup } from 'react-bootstrap';
 import TickerCard from './TickerCard';
 
 
-const url = 'https://stock-tracker-api-cc.herokuapp.com/api/symbols';
+const url = 'http://localhost:8080/allSymbols';
 
 
 function TickerList(props) {
@@ -20,7 +20,7 @@ function TickerList(props) {
     async function getSymbols() {        
         const symbolRes = await Axios.get(url, {
             headers: {'Access-Control-Allow-Origin': '*'}
-        });
+        });        
         setSymbolList(symbolRes);
         setloaded(true);
     }
@@ -29,7 +29,7 @@ function TickerList(props) {
         <ListGroup>
             {
                 loaded ? 
-                    symbolList.data._embedded.symbols.map(e => 
+                    symbolList.data.map(e => 
                     <ListGroup.Item key={e.symbol}> 
                         <TickerCard ticker={e}/>
                      </ListGroup.Item>

@@ -1,17 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import TickerCard from './components/TickerCard';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TickerList from './components/TickerList';
+import TickerList from './components/Ticker/TickerList';
+import Navbar from './components/NavBar';
+import PositionList from './components/Position/PositionList'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 
 function App() {
   return (
-    <div>
-      <TickerList />      
-    </div>
+    <Router>
+      <Navbar />
+      <div>
+        <Switch>        
+        <Route exact path="/positions" component={PositionList} />
+        <Route exact path="/symbolList" component={TickerList} />
+        </Switch>
+      </div>
+
+    </Router>
+
+
+
   );
 }
 

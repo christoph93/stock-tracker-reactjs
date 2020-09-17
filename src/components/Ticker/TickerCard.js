@@ -12,7 +12,7 @@ function TickerCard(props) {
             <Card.Body>
                 <Card.Title>{ticker.symbol}</Card.Title>
                 <Card.Text>                    
-                    Last Price: {ticker.lastPrice} <p></p>                    
+                    Last Price: {ticker.lastPrice} 
                     Last Price Date: {ticker.lastPriceDate}                    
                 </Card.Text>                
             </Card.Body>
