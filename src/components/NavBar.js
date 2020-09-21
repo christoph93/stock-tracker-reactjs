@@ -9,7 +9,7 @@ function NavBar() {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link href="#symbolList">Symbols</Nav.Link>
-                    <Nav.Link href="#positionList">Positions</Nav.Link>
+                    <Nav.Link href="#positionTable">Positions</Nav.Link>
                 </Nav>                
             </Navbar.Collapse>
         </Navbar>
