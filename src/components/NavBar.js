@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Navbar, Nav } from 'react-bootstrap';
 import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from './LoginButton';
+import LogoutButton from "./LogoutButton";
+import Profile from './Profile';
 
 function NavBar() {
 
@@ -25,13 +28,17 @@ function NavBar() {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                 {isAuthenticated && (
-                <Nav.Link href="#symbolList">Symbols</Nav.Link>
+                <Nav.Link href="#tickers">Symbols</Nav.Link>
               )}
               {isAuthenticated && (
-                <Nav.Link href="#positionTable">Positions</Nav.Link>
+                <Nav.Link href="#positions">Positions</Nav.Link>
               )}
-                </Nav>
-            </Navbar.Collapse>
+              </Nav>
+              </Navbar.Collapse>
+              {!isAuthenticated ? <LoginButton /> : <div><LogoutButton /> </div>}
+                
+                
+            
         </Navbar>
     );
 }

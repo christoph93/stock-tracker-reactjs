@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import TickerList from './Views/TickerList';
+import Tickers from './Views/Tickers';
 import Navbar from './components/NavBar';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import PositionTable from './Views/PositionTable'
+import Positions from './Views/Positions'
 import { useAuth0 } from "@auth0/auth0-react";
 import history from "./utils/history";
 import Home from './Views/Home';
@@ -24,15 +24,13 @@ function App() {
   }
 
   return (
-    <Router history={history}>
-      <div id="app" className="d-flex flex-column h-100">
+    <Router history={history}>      
         <Navbar />
         <Switch>
           <Route path="/" component={Home} />
-          <Route path="/positionTable" component={PositionTable} />
-          <Route path="/symbolList" component={TickerList} />
-        </Switch>
-      </div>
+          <Route path="/#/positions" component={Positions} />
+          <Route path="/#/tickers" component={Tickers} />
+        </Switch>      
     </Router>
 
   );

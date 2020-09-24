@@ -7,7 +7,7 @@ import TickerCard from '../components/TickerCard';
 const url = 'http://localhost:8080/allSymbols';
 
 
-function TickerList(props) {
+function Tickers(props) {
 
     const [symbolList, setSymbolList] = useState(null);
     const [loaded, setloaded] = useState(false);
@@ -44,4 +44,4 @@ function TickerList(props) {
 }
 
 
-export default TickerList;
+export default Tickers;

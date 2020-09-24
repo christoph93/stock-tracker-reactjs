@@ -18,15 +18,14 @@ function Home() {
 
     if (!isAuthenticated) {
         return (
-            <div>
-                <LoginButton />
+            <div>   
+                This is the Home page. You are not logged in.             
             </div>
         );
     } else {
         return (
-            <div>
-                <LogoutButton />
-                <Profile />
+            <div>                
+                This is the Home page. You are logged in.
             </div>
         );
     }

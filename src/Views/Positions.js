@@ -8,7 +8,7 @@ const url = 'http://localhost:8080/allPositions';
 
 
 
-function PositionTable() {
+function Positions() {
 
     const [positionList, setPositionList] = useState(null);
     const [loaded, setloaded] = useState(false);
@@ -115,4 +115,4 @@ function PositionTable() {
     );
 }
 
-export default PositionTable;
+export default Positions;
