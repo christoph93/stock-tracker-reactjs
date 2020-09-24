@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Axios from 'axios';
 import { ListGroup } from 'react-bootstrap';
-import TickerCard from './TickerCard';
+import TickerCard from '../components/TickerCard';
 
 
 const url = 'http://localhost:8080/allSymbols';
