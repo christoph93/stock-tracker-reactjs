@@ -26,10 +26,10 @@ function App() {
   return (
     <Router history={history}>      
         <Navbar />
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/#/positions" component={Positions} />
-          <Route path="/#/tickers" component={Tickers} />
+        <Switch>          
+          <Route path="/home" component={Home} />
+          <Route path="/positions" component={Positions} />
+          <Route path="/tickers" component={Tickers} />
         </Switch>      
     </Router>
 

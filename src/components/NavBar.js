@@ -34,6 +34,7 @@ function NavBar() {
                 <Nav.Link href="#positions">Positions</Nav.Link>
               )}
               </Nav>
+              {isAuthenticated ? <p>Auth</p> : <p>Not auth</p>}
               </Navbar.Collapse>
               {!isAuthenticated ? <LoginButton /> : <div><LogoutButton /> </div>}
                 

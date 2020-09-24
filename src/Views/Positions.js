@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import Axios from 'axios'
 import BootstrapTable from 'react-bootstrap-table-next';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const url = 'http://localhost:8080/allPositions';
 
@@ -9,6 +10,9 @@ const url = 'http://localhost:8080/allPositions';
 
 
 function Positions() {
+
+
+    const isAuthenticated = useAuth0();
 
     const [positionList, setPositionList] = useState(null);
     const [loaded, setloaded] = useState(false);
@@ -102,17 +106,22 @@ function Positions() {
         order: 'asc'
     }];
 
-    return (
-        loaded ?
-            <BootstrapTable
-                bootstrap4
-                keyField="id"
-                data={positionList.data}
-                columns={columns}
-                defaultSorted={defaultSorted}
-            />
-            : <p>Loading...</p>
-    );
+    if (isAuthenticated) {
+        return (
+            loaded ?
+                <BootstrapTable
+                    bootstrap4
+                    keyField="id"
+                    data={positionList.data}
+                    columns={columns}
+                    defaultSorted={defaultSorted}
+                />
+                : <p>Loading...</p>
+        );
+    } else {
+        return (<p>Not auth</p>);
+    }
+
 }
 
 export default Positions;

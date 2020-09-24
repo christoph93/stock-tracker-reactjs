@@ -7,7 +7,7 @@ function TickerCard(props) {
     const [ticker, setTicker] = useState(props.ticker);
 
     return (
-        <Card style={{ width: '25rem' }}>
+        <Card style={{ width: '15rem' }}>
             <Card.Img variant="top" src="" />
             <Card.Body>
                 <Card.Title>{ticker.symbol}</Card.Title>
