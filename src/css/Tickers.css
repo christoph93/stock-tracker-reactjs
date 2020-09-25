@@ -1,4 +1,8 @@
-.ticker-container {
-    display: flex;    
-    flex-wrap: wrap;
+.ticker-container {    
+    background-color: #c4c4c4;
+    flex-direction: column-reverse;
+}
+
+.ticker-item{
+    flex-grow: 4;
 }

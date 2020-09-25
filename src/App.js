@@ -8,6 +8,7 @@ import Positions from './Views/Positions'
 import { useAuth0 } from "@auth0/auth0-react";
 import history from "./utils/history";
 import Home from './Views/Home';
+import Transactions from './Views/Transactions';
 
 
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/home" component={Home} />
           <Route path="/positions" component={Positions} />
           <Route path="/tickers" component={Tickers} />
+          <Route path="/transactions" component={Transactions} />
         </Switch>      
     </Router>
 
