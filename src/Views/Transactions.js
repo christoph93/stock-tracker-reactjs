@@ -5,7 +5,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { useAuth0 } from "@auth0/auth0-react";
 import FileUploader from '../components/FileUploader';
 
-const url = 'http://localhost:8080/allTransactions';
+const url = 'http://localhost:8080/transactionByUser';
 
 
 
@@ -13,7 +13,7 @@ const url = 'http://localhost:8080/allTransactions';
 function Transactions() {
 
 
-    const isAuthenticated = useAuth0();
+    const {isAuthenticated, user} = useAuth0();
 
     const [transactionList, setTransactionList] = useState(null);
     const [loaded, setloaded] = useState(false);
@@ -24,7 +24,8 @@ function Transactions() {
 
     async function getTransactions() {
         const transactionRes = await Axios.get(url, {
-            headers: { 'Access-Control-Allow-Origin': '*' }
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            params: {'userId' : user.sub.replace('|', '-')}
         });
 
         transactionRes.data.map(e => {

@@ -4,7 +4,7 @@ import Axios from 'axios'
 import BootstrapTable from 'react-bootstrap-table-next';
 import { useAuth0 } from "@auth0/auth0-react";
 
-const url = 'http://localhost:8080/allPositions';
+const url = 'http://localhost:8080/positionByUser';
 
 
 
@@ -12,7 +12,7 @@ const url = 'http://localhost:8080/allPositions';
 function Positions() {
 
 
-    const isAuthenticated = useAuth0();
+    const {isAuthenticated, user} = useAuth0();
 
     const [positionList, setPositionList] = useState(null);
     const [loaded, setloaded] = useState(false);
@@ -24,7 +24,8 @@ function Positions() {
 
     async function getPositions() {
         const positionRes = await Axios.get(url, {
-            headers: { 'Access-Control-Allow-Origin': '*' }
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            params: {'userId' : user.sub.replace('|', '-')}
         });
 
         positionRes.data.map(e => {
