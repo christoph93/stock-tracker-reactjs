@@ -21,20 +21,22 @@ function NavBar() {
     });
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="dark" variant="dark" sticky="top" collapseOnSelect expand="lg">
       <Navbar.Brand href="#home">StockTracker</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
           {isAuthenticated && (
-            <div>
-              <Nav.Link href="#tickers">Symbols</Nav.Link>
-              <Nav.Link href="#positions">Positions</Nav.Link>
-              <Nav.Link href="#transactions">Transactions</Nav.Link>
-            </div>
+            <Nav.Link href="#tickers">Symbols</Nav.Link>
           )}
-        </Nav>
-        {isAuthenticated ? <p>Auth</p> : <p>Not auth</p>}
+          {isAuthenticated && (
+            <Nav.Link href="#positions">Positions</Nav.Link>
+          )}
+          {isAuthenticated && (
+            <Nav.Link href="#transactions">Transactions</Nav.Link>
+          )}
+          
+        </Nav>        
       </Navbar.Collapse>
       {!isAuthenticated ? <LoginButton /> : <div><LogoutButton /> </div>}
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card} from 'react-bootstrap';
-import '../css/TickerCard.css'
+import '../css/Tickers.css'
 
 
 function TickerCard(props) {
@@ -8,7 +8,7 @@ function TickerCard(props) {
     const [ticker, setTicker] = useState(props.ticker);
 
     return (
-        <Card className="ticker-card">
+        <Card className="item">
             <Card.Img variant="top" src="" />
             <Card.Body>
                 <Card.Title>{ticker.symbol}</Card.Title>

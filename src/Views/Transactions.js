@@ -4,8 +4,9 @@ import Axios from 'axios'
 import BootstrapTable from 'react-bootstrap-table-next';
 import { useAuth0 } from "@auth0/auth0-react";
 import FileUploader from '../components/FileUploader';
+import config from '../config/apiconfig'
 
-const url = 'http://localhost:8080/transactionByUser';
+const url = `${config.apiBasePath}/transactionByUser`;
 
 
 

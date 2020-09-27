@@ -3,8 +3,9 @@ import { Table } from 'react-bootstrap';
 import Axios from 'axios'
 import BootstrapTable from 'react-bootstrap-table-next';
 import { useAuth0 } from "@auth0/auth0-react";
+import config from '../config/apiconfig'
 
-const url = 'http://localhost:8080/positionByUser';
+const url = `${config.apiBasePath}/positionByUser`;
 
 
 

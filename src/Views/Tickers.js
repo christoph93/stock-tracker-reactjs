@@ -4,9 +4,10 @@ import { Container, Row, Col } from 'react-bootstrap';
 import TickerCard from '../components/TickerCard';
 import { useAuth0 } from "@auth0/auth0-react";
 import '../css/Tickers.css';
+import config from '../config/apiconfig'
 
 
-const url = 'http://localhost:8080/allSymbols';
+const url = `${config.apiBasePath}/allSymbols`;
 
 function Tickers(props) {
 
@@ -30,7 +31,7 @@ function Tickers(props) {
 
     if (loaded) {
         return (
-            <Container fluid className="ticker-container">
+            <Container className="container">
                 <Row>
                     {
                         symbolList.data.map(e =>
