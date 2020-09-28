@@ -58,7 +58,7 @@ function FileUploader(props) {
             console.log(formData.getAll("userSub"));
             axios.post(fileEndpoint, formData, {
                 headers: { 'Access-Control-Allow-Origin': '*' }
-            });
+            }).then( () => props.callback() )
         }
     }
 

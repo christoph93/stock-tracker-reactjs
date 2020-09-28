@@ -78,7 +78,7 @@ function Dividends() {
     if (isAuthenticated) {
         return (
             <Container>
-                <FileUploader path="uploadDividends"/>
+                <FileUploader path="uploadDividends" callback={getDividends}/>
 
             {loaded ?
                 <BootstrapTable

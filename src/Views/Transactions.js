@@ -20,8 +20,8 @@ function Transactions() {
     const [loaded, setloaded] = useState(false);
 
     useEffect(() => {
-        if (!loaded) getTransactions();
-    });
+        if (!loaded) getTransactions();        
+    }, [loaded]);
 
     async function getTransactions() {
         const transactionRes = await Axios.get(url, {
@@ -83,7 +83,7 @@ function Transactions() {
     if (isAuthenticated) {
         return (
             <Container>
-                <FileUploader path="uploadTransactions"/>
+                <FileUploader path="uploadTransactions" callback={getTransactions}/>
 
             {loaded ?
                 <BootstrapTable

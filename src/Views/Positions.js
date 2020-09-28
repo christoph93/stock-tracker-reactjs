@@ -4,7 +4,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { useAuth0 } from "@auth0/auth0-react";
 import config from '../config/apiconfig'
 
-const url = `${config.apiBasePath}/positionByUser`;
+const url = `${config.apiBasePath}/positionsByUser`;
 
 
 
@@ -23,21 +23,24 @@ function Positions() {
     });
 
     async function getPositions() {
-        const positionRes = await Axios.get(url, {
-            headers: { 'Access-Control-Allow-Origin': '*' },
-            params: { 'userId': user.sub.replace('|', '-') }
-        });
+        if (!loaded) {
+            const positionRes = await Axios.get(url, {
+                headers: { 'Access-Control-Allow-Origin': '*' },
+                params: { 'userId': user.sub.replace('|', '-') }
+            });
 
-        positionRes.data.map(e => {
-            e.avgBuyPrice = e.avgBuyPrice.toFixed(2);
-            e.totalPositionBought = e.totalPositionBought.toFixed(2);
-            e.result = e.result.toFixed(2);
-            e.resultPercent = e.resultPercent.toFixed(2);
-            e.profitLossFromSales = e.profitLossFromSales.toFixed(2);
+            positionRes.data.map(e => {
+                e.avgBuyPrice = e.avgBuyPrice.toFixed(2);
+                e.totalPositionBought = e.totalPositionBought.toFixed(2);
+                e.result = e.result.toFixed(2);
+                e.resultPercent = e.resultPercent.toFixed(2);
+                e.profitLossFromSales = e.profitLossFromSales.toFixed(2);
+                e.totalDividends = e.totalDividends.toFixed(2);
+            }
+            );
+            setPositionList(positionRes);
+            setloaded(true);
         }
-        );
-        setPositionList(positionRes);
-        setloaded(true);
     }
 
     const columns = [
@@ -90,10 +93,10 @@ function Positions() {
             footer: columnData => columnData.reduce((acc, profitLossFromSales) => acc + +profitLossFromSales, 0).toFixed(2)
         },
         {
-            dataField: 'dividends',
+            dataField: 'totalDividends',
             text: 'Proventos',
             sort: true,
-            footer: columnData => columnData.reduce((acc, dividends) => acc + +dividends, 0)
+            footer: columnData => columnData.reduce((acc, dividends) => acc + +dividends, 0).toFixed(2)
         },
         {
             dataField: 'currentPrice',
@@ -106,7 +109,7 @@ function Positions() {
             text: 'L/P Aberto (R$)',
             sort: true,
             formatter: resultFormatter,
-            footer: columnData => columnData.reduce((acc, result) => acc + +result, 0)
+            footer: columnData => columnData.reduce((acc, result) => acc + +result, 0).toFixed(2)
         },
         {
             dataField: 'resultPercent',
