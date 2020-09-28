@@ -30,12 +30,12 @@ function Positions() {
             });
 
             positionRes.data.map(e => {
-                e.avgBuyPrice = e.avgBuyPrice.toFixed(2);
-                e.totalPositionBought = e.totalPositionBought.toFixed(2);
-                e.result = e.result.toFixed(2);
-                e.resultPercent = e.resultPercent.toFixed(2);
-                e.profitLossFromSales = e.profitLossFromSales.toFixed(2);
-                e.totalDividends = e.totalDividends.toFixed(2);
+                e.avgBuyPrice = +e.avgBuyPrice.toFixed(2);
+                e.totalPositionBought = +e.totalPositionBought.toFixed(2);
+                e.result = +e.result.toFixed(2);
+                e.resultPercent = +e.resultPercent.toFixed(2);
+                e.profitLossFromSales = +e.profitLossFromSales.toFixed(2);
+                e.totalDividends = +e.totalDividends.toFixed(2);
             }
             );
             setPositionList(positionRes);
