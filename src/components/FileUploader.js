@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
 import Toast from 'react-bootstrap/Toast'
 import { Row, Col } from 'react-bootstrap'
+import config from '../config/apiconfig.js'
 
-const fileEndpoint = 'http://localhost:8080/uploadTransactions'
 
-function FileUploader() {
+
+function FileUploader(props) {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [showToast, setShowToast] = useState(false);
+
+    const fileEndpoint = `${config.apiBasePath}/${props.path}`;
 
     const {
         user

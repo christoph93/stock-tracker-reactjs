@@ -6,34 +6,34 @@ import { useAuth0 } from "@auth0/auth0-react";
 import FileUploader from '../components/FileUploader';
 import config from '../config/apiconfig'
 
-const url = `${config.apiBasePath}/transactionByUser`;
+const url = `${config.apiBasePath}/allDividendsByUser`;
 
 
 
 
-function Transactions() {
+function Dividends() {
 
 
     const {isAuthenticated, user} = useAuth0();
 
-    const [transactionList, setTransactionList] = useState(null);
+    const [dividendList, setDividendList] = useState(null);
     const [loaded, setloaded] = useState(false);
 
     useEffect(() => {
-        if (!loaded) getTransactions();
+        if (!loaded) getDividends();
     });
 
-    async function getTransactions() {
-        const transactionRes = await Axios.get(url, {
+    async function getDividends() {
+        const dividendRes = await Axios.get(url, {
             headers: { 'Access-Control-Allow-Origin': '*' },
             params: {'userId' : user.sub.replace('|', '-')}
         });
 
-        transactionRes.data.map(e => {
-            e.transactionDate = e.transactionDate.substring(0, 10);
+        dividendRes.data.map(e => {
+            e.payDate = e.payDate.substring(0, 10);
         }
         );
-        setTransactionList(transactionRes);
+        setDividendList(dividendRes);
         setloaded(true);
     }
 
@@ -44,35 +44,30 @@ function Transactions() {
             sort: true
         },
         {
-            dataField: 'transactionDate',
-            text: 'Data operação',
-            sort: true
-        },
-        {
-            dataField: 'operation',
-            text: 'Operação (C/V)',
-            sort: true
-        },
-        {
             dataField: 'description',
             text: 'Descrição',
             sort: true
         },
         {
-            dataField: 'quantity',
-            text: 'Quantidade',
+            dataField: 'payDate',
+            text: 'Data de Pagamento',
             sort: true
         },
         {
-            dataField: 'price',
-            text: 'Preço',
+            dataField: 'grossValue',
+            text: 'Valor Bruto',
             sort: true
         },
         {
-            dataField: 'totalPrice',
-            text: 'Total',
+            dataField: 'taxValue',
+            text: 'Custos',
             sort: true
         },
+        {
+            dataField: 'netValue',
+            text: 'Valor líquido',
+            sort: true
+        }        
     ];
 
     const defaultSorted = [{
@@ -83,13 +78,13 @@ function Transactions() {
     if (isAuthenticated) {
         return (
             <Container>
-                <FileUploader path="uploadTransactions"/>
+                <FileUploader path="uploadDividends"/>
 
             {loaded ?
                 <BootstrapTable
                     bootstrap4
                     keyField="id"
-                    data={transactionList.data}
+                    data={dividendList.data}
                     columns={columns}
                     defaultSorted={defaultSorted}
                 />
@@ -102,4 +97,4 @@ function Transactions() {
 
 }
 
-export default Transactions;
+export default Dividends;

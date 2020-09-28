@@ -35,7 +35,9 @@ function NavBar() {
           {isAuthenticated && (
             <Nav.Link href="#transactions">Transactions</Nav.Link>
           )}
-          
+          {isAuthenticated && (
+            <Nav.Link href="#dividends">Dividends</Nav.Link>
+          )}
         </Nav>        
       </Navbar.Collapse>
       {!isAuthenticated ? <LoginButton /> : <div><LogoutButton /> </div>}
