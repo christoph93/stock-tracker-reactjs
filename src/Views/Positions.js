@@ -4,8 +4,9 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { useAuth0 } from "@auth0/auth0-react";
 import config from '../config/apiconfig'
 
-const url = `${config.apiBasePath}/positionsByUser`;
+const positionEndpoint = `${config.apiBasePath}/positionById`;
 
+const positionListEndpoint = `${config.apiBasePath}/positionIdsByUserId`;
 
 
 
@@ -14,33 +15,61 @@ function Positions() {
 
     const { isAuthenticated, user } = useAuth0();
 
-    const [positionList, setPositionList] = useState(null);
-    const [loaded, setloaded] = useState(false);
+    const [positionIdsList, setPositionIdsList] = useState([]);
+    const [positionList, setPositionList] = useState([]);
 
 
     useEffect(() => {
-        if (!loaded) getPositions();
-    });
+        getPositionIdsList();
+    }, []);
 
-    async function getPositions() {
-        if (!loaded) {
-            const positionRes = await Axios.get(url, {
+    useEffect(() => {
+        updatePositions();
+    }, [positionIdsList]);
+
+
+
+    function updatePositions() {
+        getPosition(positionIdsList[0], 0)
+    }
+
+    var tempList = [];
+
+    async function getPosition(positionId, count) {
+        if (count < positionIdsList.length) {
+            await Axios.get(positionEndpoint, {
                 headers: { 'Access-Control-Allow-Origin': '*' },
-                params: { 'userId': user.sub.replace('|', '-') }
-            });
+                params: { 'id': positionId }
+            }).then(res => {
+                getPosition(positionIdsList[count + 1], count + 1)
 
-            positionRes.data.map(e => {
-                e.avgBuyPrice = +e.avgBuyPrice.toFixed(2);
-                e.totalPositionBought = +e.totalPositionBought.toFixed(2);
-                e.result = +e.result.toFixed(2);
-                e.resultPercent = +e.resultPercent.toFixed(2);
-                e.profitLossFromSales = +e.profitLossFromSales.toFixed(2);
-                e.totalDividends = +e.totalDividends.toFixed(2);
-            }
+                res.data.avgBuyPrice = +res.data.avgBuyPrice.toFixed(2);
+                res.data.totalPositionBought = +res.data.totalPositionBought.toFixed(2);
+                res.data.result = +res.data.result.toFixed(2);
+                res.data.resultPercent = +res.data.resultPercent.toFixed(2);
+                res.data.profitLossFromSales = +res.data.profitLossFromSales.toFixed(2);
+                res.data.totalDividends = +res.data.totalDividends.toFixed(2);
+
+                tempList.push(res.data);
+                setPositionList([]);
+                setPositionList(tempList);
+
+            },
+                err => {
+                    if (err) console.log(err)
+                }
             );
-            setPositionList(positionRes);
-            setloaded(true);
         }
+
+
+
+    }
+
+    async function getPositionIdsList() {
+        await Axios.get(positionListEndpoint, {
+            headers: { 'Access-Control-Allow-Origin': '*' },
+            params: { 'userId': user.sub.replace('|', '-') }
+        }).then(res => setPositionIdsList(res.data));
     }
 
     const columns = [
@@ -117,7 +146,7 @@ function Positions() {
             sort: true,
             formatter: resultFormatter,
             footer: 'Todo'
-        },
+        }
     ];
 
     const defaultSorted = [{
@@ -147,24 +176,24 @@ function Positions() {
         return <span> {cell} </span>
     }
 
-    if (isAuthenticated) {
+    function renderTable() {        
         return (
-            loaded ?
-                <BootstrapTable
-                    bootstrap4
-                    keyField="id"
-                    hover
-                    condensed
-                    rowStyle={rowStyle}
-                    data={positionList.data}
-                    columns={columns}
-                    defaultSorted={defaultSorted}
-                />
-                : <p>Loading...</p>
+            <BootstrapTable
+                bootstrap4
+                keyField="id"
+                hover
+                condensed
+                rowStyle={rowStyle}
+                data={positionList}
+                columns={columns}
+                defaultSorted={defaultSorted}
+            />
         );
-    } else {
-        return (<p>Not auth</p>);
     }
+
+    return (
+        isAuthenticated && renderTable()
+    );
 
 }
 

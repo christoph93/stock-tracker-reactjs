@@ -73,6 +73,10 @@ function Transactions() {
             text: 'Total',
             sort: true
         },
+        {
+            dataField: 'transactionId',
+            hidden: true
+        }
     ];
 
     const defaultSorted = [{
