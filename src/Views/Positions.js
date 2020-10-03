@@ -44,11 +44,13 @@ function Positions() {
                 getPosition(positionIdsList[count + 1], count + 1)
 
                 res.data.avgBuyPrice = +res.data.avgBuyPrice.toFixed(2);
-                res.data.totalPositionBought = +res.data.totalPositionBought.toFixed(2);
-                res.data.result = +res.data.result.toFixed(2);
-                res.data.resultPercent = +res.data.resultPercent.toFixed(2);
-                res.data.profitLossFromSales = +res.data.profitLossFromSales.toFixed(2);
-                res.data.totalDividends = +res.data.totalDividends.toFixed(2);
+                res.data.totalPositionBought = +res.data.totalPositionBought.toFixed(2);                
+                res.data.totalDividends = +res.data.totalDividends.toFixed(2);                
+                res.data.position = +res.data.position.toFixed(2);
+                res.data.tradesPercent = +res.data.tradesPercent.toFixed(2);
+                res.data.trades = +res.data.trades.toFixed(2);
+                res.data.openResult = +res.data.openResult.toFixed(2);
+                res.data.openResultPercent = +res.data.openResultPercent.toFixed(2);
 
                 tempList.push(res.data);
                 setPositionList([]);
@@ -108,18 +110,13 @@ function Positions() {
             text: 'Quantidade Atual',
             sort: true,
             footer: '-'
-        },
+        },        
         {
-            dataField: 'totalPositionBought',
-            text: 'Posição Comprada',
+            dataField: 'trades',
+            text: 'Trades',
             sort: true,
-            footer: columnData => columnData.reduce((acc, totalPositionBought) => acc + +totalPositionBought, 0).toFixed(2)
-        },
-        {
-            dataField: 'profitLossFromSales',
-            text: 'L/P Trades (R$)',
-            sort: true,
-            footer: columnData => columnData.reduce((acc, profitLossFromSales) => acc + +profitLossFromSales, 0).toFixed(2)
+            footer: columnData => columnData.reduce((acc, profitLossFromSales) => acc + +profitLossFromSales, 0).toFixed(2),
+            formatter: tradesFormatter
         },
         {
             dataField: 'totalDividends',
@@ -134,18 +131,24 @@ function Positions() {
             footer: '-'
         },
         {
-            dataField: 'result',
-            text: 'L/P Aberto (R$)',
+            dataField: 'position',
+            text: 'Posição',
+            sort: true,
+            footer: columnData => columnData.reduce((acc, totalPositionBought) => acc + +totalPositionBought, 0).toFixed(2)
+        },
+        {
+            dataField: 'openResult',
+            text: 'Resultado Aberto (R$)',
             sort: true,
             formatter: resultFormatter,
             footer: columnData => columnData.reduce((acc, result) => acc + +result, 0).toFixed(2)
         },
         {
-            dataField: 'resultPercent',
-            text: 'L/P Aberto (%)',
+            dataField: 'openResultPercent',
+            text: 'Resultado Aberto (%)',
             sort: true,
             formatter: resultFormatter,
-            footer: 'Todo'
+            footer: '-'
         }
     ];
 
@@ -164,8 +167,20 @@ function Positions() {
         return style;
     }
 
+    function tradesFormatter(cell, row) {
+        if (row.trades < 0) {
+            return (
+                <span style={{ color: 'red' }}>
+                    {cell}
+                </span>
+            );
+        }
+
+        return <span> {cell} </span>
+    }
+
     function resultFormatter(cell, row) {
-        if (row.result < 0) {
+        if (row.openResult < 0) {
             return (
                 <span style={{ color: 'red' }}>
                     {cell}
