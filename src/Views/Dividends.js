@@ -5,6 +5,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { useAuth0 } from "@auth0/auth0-react";
 import FileUploader from '../components/FileUploader';
 import config from '../config/apiconfig'
+import GridLoader from 'react-spinners/GridLoader'
 
 const url = `${config.apiBasePath}/allDividendsByUser`;
 
@@ -88,7 +89,14 @@ function Dividends() {
                     columns={columns}
                     defaultSorted={defaultSorted}
                 />
-                : <p>Loading...</p>}
+                : 
+                <GridLoader
+                    css=""
+                    size={50}
+                    color={"#1AAEC5"}
+                    loading={!loaded}
+                />
+                }
             </Container>
         );
     } else {

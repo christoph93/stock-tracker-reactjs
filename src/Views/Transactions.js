@@ -5,6 +5,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { useAuth0 } from "@auth0/auth0-react";
 import FileUploader from '../components/FileUploader';
 import config from '../config/apiconfig'
+import GridLoader from "react-spinners/GridLoader";
 
 const url = `${config.apiBasePath}/transactionByUser`;
 
@@ -14,19 +15,19 @@ const url = `${config.apiBasePath}/transactionByUser`;
 function Transactions() {
 
 
-    const {isAuthenticated, user} = useAuth0();
+    const { isAuthenticated, user } = useAuth0();
 
     const [transactionList, setTransactionList] = useState(null);
     const [loaded, setloaded] = useState(false);
 
     useEffect(() => {
-        if (!loaded) getTransactions();        
+        if (!loaded) getTransactions();
     }, [loaded]);
 
     async function getTransactions() {
         const transactionRes = await Axios.get(url, {
             headers: { 'Access-Control-Allow-Origin': '*' },
-            params: {'userId' : user.sub.replace('|', '-')}
+            params: { 'userId': user.sub.replace('|', '-') }
         });
 
         transactionRes.data.map(e => {
@@ -87,17 +88,23 @@ function Transactions() {
     if (isAuthenticated) {
         return (
             <Container>
-                <FileUploader path="uploadTransactions" callback={getTransactions}/>
+                <FileUploader path="uploadTransactions" callback={getTransactions} />
 
-            {loaded ?
-                <BootstrapTable
-                    bootstrap4
-                    keyField="id"
-                    data={transactionList.data}
-                    columns={columns}
-                    defaultSorted={defaultSorted}
-                />
-                : <p>Loading...</p>}
+                {loaded ?
+                    <BootstrapTable
+                        bootstrap4
+                        keyField="id"
+                        data={transactionList.data}
+                        columns={columns}
+                        defaultSorted={defaultSorted}
+                    />
+                    : <GridLoader
+                        css=""
+                        size={50}
+                        color={"#1AAEC5"}
+                        loading={!loaded}
+                    />
+                }
             </Container>
         );
     } else {
