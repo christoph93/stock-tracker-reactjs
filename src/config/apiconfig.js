@@ -1,4 +1,4 @@
 export default
 {
-    apiBasePath : 'https://stock-tracker-reactjs.herokuapp.com/api'
+    apiBasePath : 'https://stock-tracker-api-cc.herokuapp.com/api'
 }
